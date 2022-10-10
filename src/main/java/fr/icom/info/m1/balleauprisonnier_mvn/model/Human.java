@@ -1,4 +1,4 @@
-package fr.icom.info.m1.balleauprisonnier_mvn.controller;
+package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
@@ -16,7 +16,7 @@ public class Human extends Player{
 
     Ball ball;
 
-    Human(GraphicsContext gc, String color, int xInit, int yInit, String side) {
+    public Human(GraphicsContext gc, String color, int xInit, int yInit, String side) {
         super(gc, color, xInit, yInit, side);
         this.ball = new Ball(graphicsContext,x+30, y+30, 0, 0);
     }
@@ -25,7 +25,7 @@ public class Human extends Player{
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
-    void display()
+    public void display()
     {
         ball.display();
         graphicsContext.save(); // saves the current state on stack, including the current transform
@@ -38,7 +38,7 @@ public class Human extends Player{
      *  Deplacement du joueur vers la gauche, on cantonne le joueur sur le plateau de jeu
      */
 
-    void moveLeft()
+    public void moveLeft()
     {
         if (x > 10 && x < 520)
         {
@@ -51,7 +51,7 @@ public class Human extends Player{
     /**
      *  Deplacement du joueur vers la droite
      */
-    void moveRight()
+    public void moveRight()
     {
         if (x > 10 && x < 520)
         {
@@ -65,7 +65,7 @@ public class Human extends Player{
     /**
      *  Rotation du joueur vers la gauche
      */
-    void turnLeft()
+    public void turnLeft()
     {
         if (angle > 0 && angle < 180)
         {
@@ -81,7 +81,7 @@ public class Human extends Player{
     /**
      *  Rotation du joueur vers la droite
      */
-    void turnRight()
+    public void turnRight()
     {
         if (angle > 0 && angle < 180)
         {
@@ -93,7 +93,7 @@ public class Human extends Player{
     }
 
 
-    void shoot(){
+    public void shoot(){
         sprite.playShoot();
         if(side=="top"){
             ball.setAngle(angle+90);

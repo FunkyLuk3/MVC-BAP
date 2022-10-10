@@ -1,9 +1,8 @@
-package fr.icom.info.m1.balleauprisonnier_mvn.controller;
+package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 
 import fr.icom.info.m1.balleauprisonnier_mvn.view.Sprite;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.transform.Rotate;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -24,7 +23,7 @@ public class Player
 
 	// On une image globale du joueur
 	Image directionArrow;
-	Sprite sprite;
+	public Sprite sprite;
 	ImageView PlayerDirectionArrow;
 
 	String side;
@@ -82,7 +81,7 @@ public class Player
 	/**
 	 *  Affichage du joueur
 	 */
-	void display()
+	public void display()
 	{
 	}
 
@@ -93,31 +92,31 @@ public class Player
 	 *  Deplacement du joueur vers la gauche, on cantonne le joueur sur le plateau de jeu
 	 */
 
-	void moveLeft(){
+	public void moveLeft(){
 	}
 
 	/**
 	 *  Deplacement du joueur vers la droite
 	 */
-	void moveRight(){
+	public void moveRight(){
 	}
 
 
 	/**
 	 *  Rotation du joueur vers la gauche
 	 */
-	void turnLeft(){
+	public void turnLeft(){
 	}
 
 
 	/**
 	 *  Rotation du joueur vers la droite
 	 */
-	void turnRight(){
+	public void turnRight(){
 	}
 
 
-	void shoot(){
+	public void shoot(){
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package fr.icom.info.m1.balleauprisonnier_mvn.controller;
+package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

@@ -1,4 +1,4 @@
-package fr.icom.info.m1.balleauprisonnier_mvn.controller;
+package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 import javafx.scene.canvas.GraphicsContext;
 
@@ -12,7 +12,7 @@ public class Bot extends  Player{
      * @param yInit position verticale
      * @param side
      */
-    Bot(GraphicsContext gc, String color, int xInit, int yInit, String side) {
+    public Bot(GraphicsContext gc, String color, int xInit, int yInit, String side) {
         super(gc, color, xInit, yInit, side);
     }
 }

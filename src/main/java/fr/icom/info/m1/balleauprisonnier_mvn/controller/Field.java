@@ -1,11 +1,11 @@
-package fr.icom.info.m1.balleauprisonnier_mvn.model;
+package fr.icom.info.m1.balleauprisonnier_mvn.controller;
 
 
 import java.util.ArrayList;
 
-import fr.icom.info.m1.balleauprisonnier_mvn.controller.Bot;
-import fr.icom.info.m1.balleauprisonnier_mvn.controller.Human;
-import fr.icom.info.m1.balleauprisonnier_mvn.controller.Player;
+import fr.icom.info.m1.balleauprisonnier_mvn.model.Bot;
+import fr.icom.info.m1.balleauprisonnier_mvn.model.Human;
+import fr.icom.info.m1.balleauprisonnier_mvn.model.Player;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
