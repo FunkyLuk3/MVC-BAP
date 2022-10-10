@@ -1,6 +1,7 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
 
 
+import fr.icom.info.m1.balleauprisonnier_mvn.model.Field;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;

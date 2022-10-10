@@ -1,8 +1,11 @@
-package fr.icom.info.m1.balleauprisonnier_mvn;
+package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 
 import java.util.ArrayList;
 
+import fr.icom.info.m1.balleauprisonnier_mvn.controller.Bot;
+import fr.icom.info.m1.balleauprisonnier_mvn.controller.Human;
+import fr.icom.info.m1.balleauprisonnier_mvn.controller.Player;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -18,7 +21,7 @@ import javafx.scene.paint.Color;
 public class Field extends Canvas {
 
 	/** Joueurs */
-	Player [] teamA = new Player[3];
+	Player[] teamA = new Player[3];
 	Player [] teamB = new Player[3];
 	/** Couleurs possibles */
 	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
