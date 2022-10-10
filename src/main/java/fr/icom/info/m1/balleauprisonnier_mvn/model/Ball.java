@@ -13,10 +13,17 @@ public class Ball {
     double angle;
     double speed;
 
+    boolean isThrown;
+
+    String side;
+
     Image projectile;
     ImageView projectileBall;
     GraphicsContext graphicsContext;
 
+    public boolean getIsThrown(){
+        return this.isThrown;
+    }
     public void setAngle(double angle) {
         this.angle = angle;
     }
@@ -31,6 +38,10 @@ public class Ball {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public String getSide() {
+        return side;
     }
 
     public Ball(GraphicsContext graphicsContext, double x, double y, double angle, double speed){
@@ -56,14 +67,14 @@ public class Ball {
         y += speed*Math.sin(angle*(Math.PI)/180);
     }
 
-    void display()
+    public void display()
     {
         graphicsContext.save(); // saves the current state on stack, including the current transform
         graphicsContext.drawImage(projectile, x, y);
         graphicsContext.restore(); // back to original state (before rotation)
     }
 
-    boolean out()
+    public boolean out()
     {
         if (x > 600 || x < 0 || y > 600 || y < 0) {
             return true;

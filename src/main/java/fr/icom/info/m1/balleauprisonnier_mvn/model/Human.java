@@ -4,6 +4,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
 
 public class Human extends Player{
+    @Override
+    public boolean getHasBall() {
+        return this.hasBall;
+    }
+
+    public void setHasBall(boolean hasBall){
+        this.hasBall = hasBall;
+    }
+
     /**
      * Constructeur du Joueur
      *
@@ -14,11 +23,8 @@ public class Human extends Player{
      * @param side
      */
 
-    Ball ball;
-
     public Human(GraphicsContext gc, String color, int xInit, int yInit, String side) {
         super(gc, color, xInit, yInit, side);
-        this.ball = new Ball(graphicsContext,x+30, y+30, 0, 0);
     }
     private void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
@@ -27,7 +33,6 @@ public class Human extends Player{
 
     public void display()
     {
-        ball.display();
         graphicsContext.save(); // saves the current state on stack, including the current transform
         rotate(graphicsContext, angle, x + directionArrow.getWidth() / 2, y + directionArrow.getHeight() / 2);
         graphicsContext.drawImage(directionArrow, x, y);
@@ -45,7 +50,6 @@ public class Human extends Player{
             spriteAnimate();
             x -= step;
         }
-        ball.setX(x+30);
     }
 
     /**
@@ -58,7 +62,6 @@ public class Human extends Player{
             spriteAnimate();
             x += step;
         }
-        ball.setX(x+30);
     }
 
 
@@ -92,21 +95,13 @@ public class Human extends Player{
         }
     }
 
-
-    public void shoot(){
+    public double shoot(){
         sprite.playShoot();
-        if(side=="top"){
-            ball.setAngle(angle+90);
+        hasBall = false;
+        if (side == "top") {
+            return this.angle+90;
         }
-        else{
-            ball.setAngle(angle-90);
-        }
-        ball.setSpeed(3);
-        if(ball.out()) {
-            ball.setX(x);
-            ball.setY(y);
-        }
-        ball.deplacement();
+        return this.angle-90;
     }
 
     /**

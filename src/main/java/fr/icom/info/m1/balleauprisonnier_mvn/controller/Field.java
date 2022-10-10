@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Bot;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Human;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Player;
+import fr.icom.info.m1.balleauprisonnier_mvn.model.Ball;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -23,6 +24,8 @@ public class Field extends Canvas {
 	/** Joueurs */
 	Player[] teamA = new Player[3];
 	Player [] teamB = new Player[3];
+
+	Ball ball;
 	/** Couleurs possibles */
 	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
 	/** Tableau traçant les evenements */
@@ -55,9 +58,13 @@ public class Field extends Canvas {
 		teamA[1] = new Bot(gc, colorMap[0], w/4, h-50, "bottom");
 		teamA[1].display();
 		teamA[0] = new Human(gc, colorMap[0], w/2, h-50, "bottom");
+		teamA[0].setHasBall(true);
 		teamA[0].display();
 		teamA[2] = new Bot(gc, colorMap[0], 3*w/4, h-50, "bottom");
 		teamA[2].display();
+
+		ball = new Ball(gc,w/2, h-50,0, 0);
+		ball.display();
 
 		teamB[1] = new Bot(gc, colorMap[1], w/4, 20, "top");
 		teamB[1].display();
@@ -129,8 +136,13 @@ public class Field extends Canvas {
 					if (input.contains("DOWN")) {
 						teamA[i].turnRight();
 					}
-					if (input.contains("CONTROL")) {
-						teamA[i].shoot();
+					if (input.contains("CONTROL") && teamA[i].getHasBall()) {
+						ball.setAngle(teamA[i].shoot());
+						ball.setSpeed(0.5);
+					}
+					if (!teamA[i].getHasBall()) {
+						ball.deplacement();
+						ball.display();
 					}
 					teamA[i].display();
 				}
@@ -151,15 +163,39 @@ public class Field extends Canvas {
 					{
 						teamB[i].turnRight();
 					}
-					if (input.contains("SPACE"))
+					if (input.contains("SPACE") && teamB[i].getHasBall())
 					{
-						teamB[i].shoot();
+						ball.setAngle(teamB[i].shoot());
+						ball.setSpeed(0.5);
+					}
+					if (!teamB[i].getHasBall()) {
+						ball.deplacement();
+						ball.display();
 					}
 					teamB[i].display();
 				}
 			}
 		}.start(); // On lance la boucle de rafraichissement
 
+	}
+
+	public java.lang.Integer playerWithBall(){
+		for (int i = 0; i < teamA.length; i++) {
+			if (teamA[i].getHasBall()) {
+				return i;
+			}else if (teamB[i].getHasBall()) {
+				return i;
+			}
+		}
+		return null;
+	}
+	public void updateBall(){
+		if(ball.getIsThrown()){
+			ball.deplacement();
+		} else if(ball.getSide() == "undefined"){
+			ball.deplacement();
+		}
+		ball.display();
 	}
 
 	public Player[] getJoueurs() {

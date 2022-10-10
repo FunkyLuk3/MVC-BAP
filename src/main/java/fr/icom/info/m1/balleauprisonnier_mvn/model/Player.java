@@ -21,12 +21,14 @@ public class Player
 	double step;    // pas d'un joueur
 	String playerColor;
 
+
 	// On une image globale du joueur
 	Image directionArrow;
 	public Sprite sprite;
 	ImageView PlayerDirectionArrow;
 
 	String side;
+	boolean hasBall;
 
 	GraphicsContext graphicsContext;
 
@@ -37,6 +39,10 @@ public class Player
 	 * @param color couleur du joueur
 	 * @param yInit position verticale
 	 */
+	public  boolean getHasBall(){
+		return false;
+	}
+
 	Player(GraphicsContext gc, String color, int xInit, int yInit, String side)
 	{
 		// Tous les joueurs commencent au centre du canvas, 
@@ -108,6 +114,7 @@ public class Player
 	public void turnLeft(){
 	}
 
+	public void setHasBall(boolean hasBall){}
 
 	/**
 	 *  Rotation du joueur vers la droite
@@ -116,7 +123,8 @@ public class Player
 	}
 
 
-	public void shoot(){
+	public double shoot(){
+		return 0;
 	}
 
 	/**
