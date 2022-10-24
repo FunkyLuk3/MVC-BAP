@@ -16,7 +16,7 @@ import java.util.Random;
 public class Player
 {
 	double x;       // position horizontale du joueur
-	final double y; 	  // position verticale du joueur
+	double y; 	  // position verticale du joueur
 	double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
 	double step;    // pas d'un joueur
 	String playerColor;
@@ -41,6 +41,14 @@ public class Player
 	 */
 	public  boolean getHasBall(){
 		return false;
+	}
+
+	public double getX(){
+		return this.x;
+	}
+
+	public double getY(){
+		return this.y;
 	}
 
 	Player(GraphicsContext gc, String color, int xInit, int yInit, String side)
@@ -77,7 +85,7 @@ public class Player
 
 		// Tous les joueurs ont une vitesse aleatoire entre 0.0 et 1.0
 		Random randomGenerator = new Random();
-		step = randomGenerator.nextFloat();
+		step = 2;//randomGenerator.nextFloat();
 
 		// Pour commencer les joueurs ont une vitesse / un pas fixe
 		// step = 1;
@@ -136,4 +144,9 @@ public class Player
 	void spriteAnimate(){
 	}
 
+	public void moveUp() {
+	}
+
+	public void moveDown() {
+	}
 }

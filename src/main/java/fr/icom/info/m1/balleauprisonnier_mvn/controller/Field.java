@@ -64,6 +64,7 @@ public class Field extends Canvas {
 		teamA[2].display();
 
 		ball = new Ball(gc,w/2, h-50,0, 0);
+		ball.setSide("bottom");
 		ball.display();
 
 		teamB[1] = new Bot(gc, colorMap[1], w/4, 20, "top");
@@ -124,16 +125,22 @@ public class Field extends Canvas {
 
 				// Deplacement et affichage des joueurs
 				for (int i = 0; i < teamA.length; i++) {
-					if (input.contains("LEFT")) {
+					if (input.contains("K")) {
 						teamA[i].moveLeft();
 					}
-					if (input.contains("RIGHT")) {
+					if (input.contains("M")) {
 						teamA[i].moveRight();
 					}
-					if (input.contains("UP")) {
+					if (input.contains("L")) {
+						teamA[i].moveUp();
+					}
+					if (input.contains("O")) {
+						teamA[i].moveDown();
+					}
+					if (input.contains("P")) {
 						teamA[i].turnLeft();
 					}
-					if (input.contains("DOWN")) {
+					if (input.contains("I")) {
 						teamA[i].turnRight();
 					}
 					if (input.contains("CONTROL") && teamA[i].getHasBall()) {
@@ -145,7 +152,9 @@ public class Field extends Canvas {
 						ball.display();
 					}
 					teamA[i].display();
+					updateBall();
 				}
+
 				for (int i = 0; i < teamB.length; i++) {
 					if (input.contains("Q"))
 					{
@@ -155,13 +164,19 @@ public class Field extends Canvas {
 					{
 						teamB[i].moveRight();
 					}
-					if (input.contains("S"))
+					if (input.contains("A"))
 					{
 						teamB[i].turnLeft();
 					}
-					if (input.contains("Z"))
+					if (input.contains("E"))
 					{
 						teamB[i].turnRight();
+					}
+					if (input.contains("S")) {
+						teamB[i].moveUp();
+					}
+					if (input.contains("Z")) {
+						teamB[i].moveDown();
 					}
 					if (input.contains("SPACE") && teamB[i].getHasBall())
 					{
@@ -173,6 +188,7 @@ public class Field extends Canvas {
 						ball.display();
 					}
 					teamB[i].display();
+					updateBall();
 				}
 			}
 		}.start(); // On lance la boucle de rafraichissement
@@ -192,9 +208,34 @@ public class Field extends Canvas {
 	public void updateBall(){
 		if(ball.getIsThrown()){
 			ball.deplacement();
-		} else if(ball.getSide() == "undefined"){
-			ball.deplacement();
+		} else if (ball.getY() <= 0){
+			ball.setSide("top");
+			ball.setSpeed(0);
+			teamB[0].setHasBall(true);
+			ball.setX(teamB[0].getX());
+			ball.setY(teamB[0].getY());
+		} else if (ball.getY() >= height) {
+			ball.setSide("bottom");
+			ball.setSpeed(0);
+			teamA[0].setHasBall(true);
+			ball.setX(teamA[0].getX());
+			ball.setY(teamA[0].getY());
 		}
+
+		if (ball.getX() <= 0 ){
+			ball.bounce();
+		} else if (ball.getX() >= width) {
+			ball.bounce();
+		}
+
+		if (teamA[0].getHasBall()) {
+			ball.setX(teamA[0].getX());
+			ball.setY(teamA[0].getY());
+		} else if (teamB[0].getHasBall()) {
+			ball.setX(teamB[0].getX());
+			ball.setY(teamB[0].getY());
+		}
+
 		ball.display();
 	}
 

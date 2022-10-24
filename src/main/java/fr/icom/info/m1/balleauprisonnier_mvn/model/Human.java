@@ -64,6 +64,24 @@ public class Human extends Player{
         }
     }
 
+    public void moveUp()
+    {
+        if (y > 10 && y < 600/2)
+        {
+            spriteAnimate();
+            y += step;
+        }
+    }
+
+    public void moveDown()
+    {
+        if (y > 10 && y < 560)
+        {
+            spriteAnimate();
+            y -= step;
+        }
+    }
+
 
     /**
      *  Rotation du joueur vers la gauche

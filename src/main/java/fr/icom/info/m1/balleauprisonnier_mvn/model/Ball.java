@@ -32,6 +32,18 @@ public class Ball {
         this.speed = speed;
     }
 
+    public double getSpeed() {
+        return speed;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
     public void setX(double x) {
         this.x = x;
     }
@@ -42,6 +54,10 @@ public class Ball {
 
     public String getSide() {
         return side;
+    }
+
+    public void setSide(String side) {
+        this.side = side;
     }
 
     public Ball(GraphicsContext graphicsContext, double x, double y, double angle, double speed){
@@ -63,6 +79,9 @@ public class Ball {
     }
 
     public void deplacement(){
+
+        this.speed -= 0.0012*(this.speed*this.speed) ;
+
         x += speed*Math.cos(angle*(Math.PI)/180);
         y += speed*Math.sin(angle*(Math.PI)/180);
     }
@@ -74,12 +93,19 @@ public class Ball {
         graphicsContext.restore(); // back to original state (before rotation)
     }
 
-    public boolean out()
+    public boolean out(double height)
     {
-        if (x > 600 || x < 0 || y > 600 || y < 0) {
+        if (this.y > height) {
+            return true;
+        } else if (this.y < 0) {
             return true;
         }
         return  false;
+    }
+
+    public void bounce(){
+        this.angle = 180 - this.angle;
+        this.speed = this.speed + 0.5;
     }
 }
 
