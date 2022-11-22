@@ -112,8 +112,8 @@ public class Ball {
     }
 
     public boolean touch(Player player){
-        return (player.getX() <= x+(radius*2) && player.getX() + 10 >= x &&
-                player.getY() <= y+(radius*2) && player.getY() + 45 >= y);
+        return (player.getX() + 10 <= x + radius && player.getX() + 55 >= x + radius &&
+                player.getY() <= y + radius && player.getY() + 70 >= y + radius);
     }
 }
 

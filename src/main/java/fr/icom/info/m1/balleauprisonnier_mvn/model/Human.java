@@ -157,5 +157,6 @@ public class Human extends Player{
         sprite.setX(x);
         sprite.setY(y);
     }
+
 }
 

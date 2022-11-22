@@ -196,7 +196,10 @@ public class Field extends Canvas {
 				for (int i = 0; i < teamB.size(); i++) {
 					if (ball.getSide() == "bottom") {
 						if (ball.touch(teamB.get(i))) {
+							teamB.get(i).kill();
 							teamB.remove(i);
+							ball.setSpeed(0);
+							ball.setSide("");
 						}
 					}
 				}
@@ -204,7 +207,10 @@ public class Field extends Canvas {
 				for (int i = 0; i < teamA.size(); i++) {
 					if (ball.getSide() == "top") {
 						if (ball.touch(teamA.get(i))) {
+							teamA.get(i).kill();
 							teamA.remove(i);
+							ball.setSpeed(0);
+							ball.setSide("");
 						}
 					}
 				}

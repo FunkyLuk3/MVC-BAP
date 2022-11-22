@@ -149,4 +149,8 @@ public class Player
 
 	public void moveDown() {
 	}
+
+	public void kill() {
+		sprite.setImage(null);
+	}
 }
