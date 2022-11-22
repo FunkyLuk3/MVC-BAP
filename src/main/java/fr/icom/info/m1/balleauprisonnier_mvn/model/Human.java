@@ -45,11 +45,14 @@ public class Human extends Player{
 
     public void moveLeft()
     {
-        if (x > 10 && x < 520)
+        if (x < 10)
         {
-            spriteAnimate();
-            x -= step;
+            x = 10;
+        } else if (x > 520) {
+            x = 520;
         }
+        spriteAnimate();
+        x -= step;
     }
 
     /**
@@ -57,29 +60,46 @@ public class Human extends Player{
      */
     public void moveRight()
     {
-        if (x > 10 && x < 520)
+        if (x < 10)
         {
-            spriteAnimate();
-            x += step;
+            x = 10;
+        } else if (x > 520) {
+            x = 520;
         }
+        spriteAnimate();
+        x += step;
     }
 
     public void moveUp()
     {
-        if (y > 10 && y < 600/2)
-        {
-            spriteAnimate();
-            y += step;
+        if (y < 10 && side=="top") {
+            y = 10;
+        } else if (y > 520 && side=="bottom") {
+            y = 520;
         }
+        if (y > 520/2 && side=="top") {
+            y = 520/2;
+        } else if (y < 520/2 && side=="bottom") {
+            y = 520/2;
+        }
+        spriteAnimate();
+        y += step;
     }
 
     public void moveDown()
     {
-        if (y > 10 && y < 560)
-        {
-            spriteAnimate();
-            y -= step;
+        if (y < 10 && side=="top") {
+            y = 10;
+        } else if (y > 520 && side=="bottom") {
+            y = 520;
         }
+        if (y > 520/2 && side=="top") {
+            y = 520/2;
+        } else if (y < 520/2 && side=="bottom") {
+            y = 520/2;
+        }
+        spriteAnimate();
+        y -= step;
     }
 
 

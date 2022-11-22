@@ -13,6 +13,8 @@ public class Ball {
     double angle;
     double speed;
 
+    double radius;
+
     boolean isThrown;
 
     String side;
@@ -61,6 +63,7 @@ public class Ball {
     }
 
     public Ball(GraphicsContext graphicsContext, double x, double y, double angle, double speed){
+        this.radius = 25/2;
         this.x = x;
         this.y = y;
         this.angle = angle;
@@ -106,6 +109,11 @@ public class Ball {
     public void bounce(){
         this.angle = 180 - this.angle;
         this.speed = this.speed + 0.5;
+    }
+
+    public boolean touch(Player player){
+        return (player.getX() <= x+(radius*2) && player.getX() + 10 >= x &&
+                player.getY() <= y+(radius*2) && player.getY() + 45 >= y);
     }
 }
 

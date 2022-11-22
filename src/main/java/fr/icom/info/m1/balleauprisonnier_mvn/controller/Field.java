@@ -3,6 +3,7 @@ package fr.icom.info.m1.balleauprisonnier_mvn.controller;
 
 import java.util.ArrayList;
 
+import com.sun.tools.javac.util.ArrayUtils;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Bot;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Human;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Player;
@@ -22,8 +23,8 @@ import javafx.scene.paint.Color;
 public class Field extends Canvas {
 
 	/** Joueurs */
-	Player[] teamA = new Player[3];
-	Player [] teamB = new Player[3];
+	ArrayList<Player> teamA = new ArrayList<Player>();
+	ArrayList<Player> teamB = new ArrayList<Player>();
 
 	Ball ball;
 	/** Couleurs possibles */
@@ -55,25 +56,26 @@ public class Field extends Canvas {
 		gc = this.getGraphicsContext2D();
 
 		/** On initialise le terrain de jeu */
-		teamA[1] = new Bot(gc, colorMap[0], w/4, h-50, "bottom");
-		teamA[1].display();
-		teamA[0] = new Human(gc, colorMap[0], w/2, h-50, "bottom");
-		teamA[0].setHasBall(true);
-		teamA[0].display();
-		teamA[2] = new Bot(gc, colorMap[0], 3*w/4, h-50, "bottom");
-		teamA[2].display();
+		teamA.add(new Human(gc, colorMap[0], w/2, h-80, "bottom"));
+		teamA.add(new Bot(gc, colorMap[0], w/4, h-80, "bottom"));
+		teamA.add(new Bot(gc, colorMap[0], 3*w/4, h-80, "bottom"));
+
+		for (int i = 0; i < teamA.size(); i++) {
+			teamA.get(i).display();
+		}
+		teamA.get(0).setHasBall(true);
 
 		ball = new Ball(gc,w/2, h-50,0, 0);
 		ball.setSide("bottom");
 		ball.display();
 
-		teamB[1] = new Bot(gc, colorMap[1], w/4, 20, "top");
-		teamB[1].display();
-		teamB[0] = new Human(gc, colorMap[1], w/2, 20, "top");
-		teamB[0].display();
-		teamB[2] = new Bot(gc, colorMap[1], 3*w/4, 20, "top");
-		teamB[2].display();
+		teamB.add(new Human(gc, colorMap[1], w/2, 20, "top"));
+		teamB.add(new Bot(gc, colorMap[1], w/4, 20, "top"));
+		teamB.add(new Bot(gc, colorMap[1], 3*w/4, 20, "top"));
 
+		for (int i = 0; i < teamB.size(); i++) {
+			teamB.get(i).display();
+		}
 
 		/**
 		 * Event Listener du clavier
@@ -124,82 +126,99 @@ public class Field extends Canvas {
 				gc.fillRect(0, 0, width, height);
 
 				// Deplacement et affichage des joueurs
-				for (int i = 0; i < teamA.length; i++) {
+				for (int i = 0; i < teamA.size(); i++) {
 					if (input.contains("K")) {
-						teamA[i].moveLeft();
+						teamA.get(i).moveLeft();
 					}
 					if (input.contains("M")) {
-						teamA[i].moveRight();
+						teamA.get(i).moveRight();
 					}
 					if (input.contains("L")) {
-						teamA[i].moveUp();
+						teamA.get(i).moveUp();
 					}
 					if (input.contains("O")) {
-						teamA[i].moveDown();
+						teamA.get(i).moveDown();
 					}
 					if (input.contains("P")) {
-						teamA[i].turnLeft();
+						teamA.get(i).turnLeft();
 					}
 					if (input.contains("I")) {
-						teamA[i].turnRight();
+						teamA.get(i).turnRight();
 					}
-					if (input.contains("CONTROL") && teamA[i].getHasBall()) {
-						ball.setAngle(teamA[i].shoot());
+					if (input.contains("CONTROL") && teamA.get(i).getHasBall()) {
+						ball.setAngle(teamA.get(i).shoot());
 						ball.setSpeed(0.5);
 					}
-					if (!teamA[i].getHasBall()) {
+					if (!teamA.get(i).getHasBall()) {
 						ball.deplacement();
 						ball.display();
 					}
-					teamA[i].display();
+					teamA.get(i).display();
 					updateBall();
 				}
 
-				for (int i = 0; i < teamB.length; i++) {
+				for (int i = 0; i < teamB.size(); i++) {
 					if (input.contains("Q"))
 					{
-						teamB[i].moveLeft();
+						teamB.get(i).moveLeft();
 					}
 					if (input.contains("D"))
 					{
-						teamB[i].moveRight();
+						teamB.get(i).moveRight();
 					}
 					if (input.contains("A"))
 					{
-						teamB[i].turnLeft();
+						teamB.get(i).turnLeft();
 					}
 					if (input.contains("E"))
 					{
-						teamB[i].turnRight();
+						teamB.get(i).turnRight();
 					}
 					if (input.contains("S")) {
-						teamB[i].moveUp();
+						teamB.get(i).moveUp();
 					}
 					if (input.contains("Z")) {
-						teamB[i].moveDown();
+						teamB.get(i).moveDown();
 					}
-					if (input.contains("SPACE") && teamB[i].getHasBall())
+					if (input.contains("SPACE") && teamB.get(i).getHasBall())
 					{
-						ball.setAngle(teamB[i].shoot());
+						ball.setAngle(teamB.get(i).shoot());
 						ball.setSpeed(0.5);
 					}
-					if (!teamB[i].getHasBall()) {
+					if (!teamB.get(i).getHasBall()) {
 						ball.deplacement();
 						ball.display();
 					}
-					teamB[i].display();
+					teamB.get(i).display();
 					updateBall();
 				}
+
+				for (int i = 0; i < teamB.size(); i++) {
+					if (ball.getSide() == "bottom") {
+						if (ball.touch(teamB.get(i))) {
+							teamB.remove(i);
+						}
+					}
+				}
+
+				for (int i = 0; i < teamA.size(); i++) {
+					if (ball.getSide() == "top") {
+						if (ball.touch(teamA.get(i))) {
+							teamA.remove(i);
+						}
+					}
+				}
+
 			}
 		}.start(); // On lance la boucle de rafraichissement
 
 	}
 
 	public java.lang.Integer playerWithBall(){
-		for (int i = 0; i < teamA.length; i++) {
-			if (teamA[i].getHasBall()) {
+		for (int i = 0; i < teamA.size(); i++) {
+			if (teamA.get(i).getHasBall()) {
 				return i;
-			}else if (teamB[i].getHasBall()) {
+			}else if (teamB.get(i).getHasBall()) {
 				return i;
 			}
 		}
@@ -211,15 +230,15 @@ public class Field extends Canvas {
 		} else if (ball.getY() <= 0){
 			ball.setSide("top");
 			ball.setSpeed(0);
-			teamB[0].setHasBall(true);
-			ball.setX(teamB[0].getX());
-			ball.setY(teamB[0].getY());
+			teamB.get(0).setHasBall(true);
+			ball.setX(teamB.get(0).getX());
+			ball.setY(teamB.get(0).getY());
 		} else if (ball.getY() >= height) {
 			ball.setSide("bottom");
 			ball.setSpeed(0);
-			teamA[0].setHasBall(true);
-			ball.setX(teamA[0].getX());
-			ball.setY(teamA[0].getY());
+			teamA.get(0).setHasBall(true);
+			ball.setX(teamA.get(0).getX());
+			ball.setY(teamA.get(0).getY());
 		}
 
 		if (ball.getX() <= 0 ){
@@ -228,27 +247,25 @@ public class Field extends Canvas {
 			ball.bounce();
 		}
 
-		if (teamA[0].getHasBall()) {
-			ball.setX(teamA[0].getX());
-			ball.setY(teamA[0].getY());
-		} else if (teamB[0].getHasBall()) {
-			ball.setX(teamB[0].getX());
-			ball.setY(teamB[0].getY());
+		if (teamA.get(0).getHasBall()) {
+			ball.setX(teamA.get(0).getX());
+			ball.setY(teamA.get(0).getY());
+		} else if (teamB.get(0).getHasBall()) {
+			ball.setX(teamB.get(0).getX());
+			ball.setY(teamB.get(0).getY());
 		}
 
 		ball.display();
 	}
 
-	public Player[] getJoueurs() {
-		Player [] joueurs = new Player[teamA.length + teamB.length];
+	public ArrayList<Player> getJoueurs() {
+		ArrayList<Player> joueurs = new ArrayList<Player>();
 
-		for (int i = 0; i < joueurs.length; i++) {
-			if (i< teamA.length){
-				joueurs[i] = teamA[i];
-			}
-			if (i>= teamA.length){
-				joueurs[i] = teamB[i-teamA.length];
-			}
+		for (int i = 0; i < teamA.size(); i++) {
+			joueurs.add(teamA.get(i));
+		}
+		for (int i = 0; i < teamB.size(); i++) {
+			joueurs.add(teamB.get(i));
 		}
 
 		return joueurs;

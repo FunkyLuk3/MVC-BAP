@@ -34,7 +34,7 @@ public class App extends Application
 		Field gameField = new Field(scene, 600, 600 );
 		root.getChildren().add( gameField );
 		for (int i = 0; i < 6; i++) {
-			root.getChildren().add(gameField.getJoueurs()[i].sprite);
+			root.getChildren().add(gameField.getJoueurs().get(i).sprite);
 		}
 
 		// On ajoute la scene a la fenetre et on affiche
