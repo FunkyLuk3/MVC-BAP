@@ -1,18 +1,18 @@
 package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
-import javafx.scene.canvas.GraphicsContext;
+import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 
 public class Bot extends  Player{
     /**
      * Constructeur du Joueur
      *
-     * @param gc    ContextGraphic dans lequel on va afficher le joueur
+     * @param field terrain dans lequel on va afficher le joueur
      * @param color couleur du joueur
      * @param xInit
      * @param yInit position verticale
      * @param side
      */
-    public Bot(GraphicsContext gc, String color, int xInit, int yInit, String side) {
-        super(gc, color, xInit, yInit, side);
+    public Bot(Field field, String color, double xInit, double yInit, String side) {
+        super(field, color, xInit, yInit, side);
     }
 }

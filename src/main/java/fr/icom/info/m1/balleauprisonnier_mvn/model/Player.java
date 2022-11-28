@@ -2,6 +2,7 @@ package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 
 import fr.icom.info.m1.balleauprisonnier_mvn.view.Sprite;
+import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,12 +31,12 @@ public class Player
 	String side;
 	boolean hasBall;
 
-	GraphicsContext graphicsContext;
+	Field field;
 
 	/**
 	 * Constructeur du Joueur
 	 *
-	 * @param gc ContextGraphic dans lequel on va afficher le joueur
+	 * @param field le terrain dans lequel on va afficher le joueur
 	 * @param color couleur du joueur
 	 * @param yInit position verticale
 	 */
@@ -51,12 +52,12 @@ public class Player
 		return this.y;
 	}
 
-	Player(GraphicsContext gc, String color, int xInit, int yInit, String side)
+	Player(Field field, String color, double xInit, double yInit, String side)
 	{
 		// Tous les joueurs commencent au centre du canvas, 
 		x = xInit;
 		y = yInit;
-		graphicsContext = gc;
+		this.field = field;
 		playerColor=color;
 
 		angle = 0;

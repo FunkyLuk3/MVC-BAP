@@ -2,8 +2,10 @@ package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
+import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 
-public class Human extends Player{
+public class Human extends Player
+{
     @Override
     public boolean getHasBall() {
         return this.hasBall;
@@ -16,15 +18,15 @@ public class Human extends Player{
     /**
      * Constructeur du Joueur
      *
-     * @param gc    ContextGraphic dans lequel on va afficher le joueur
+     * @param field terrain dans lequel on va afficher le joueur
      * @param color couleur du joueur
      * @param xInit
      * @param yInit position verticale
      * @param side
      */
 
-    public Human(GraphicsContext gc, String color, int xInit, int yInit, String side) {
-        super(gc, color, xInit, yInit, side);
+    public Human(Field field, String color, double xInit, double yInit, String side) {
+        super(field, color, xInit, yInit, side);
     }
     private void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
@@ -33,10 +35,10 @@ public class Human extends Player{
 
     public void display()
     {
-        graphicsContext.save(); // saves the current state on stack, including the current transform
-        rotate(graphicsContext, angle, x + directionArrow.getWidth() / 2, y + directionArrow.getHeight() / 2);
-        graphicsContext.drawImage(directionArrow, x, y);
-        graphicsContext.restore(); // back to original state (before rotation)
+        field.getGraphicsContext2D().save(); // saves the current state on stack, including the current transform
+        rotate(field.getGraphicsContext2D(), angle, x + directionArrow.getWidth() / 2, y + directionArrow.getHeight() / 2);
+        field.getGraphicsContext2D().drawImage(directionArrow, x, y);
+        field.getGraphicsContext2D().restore(); // back to original state (before rotation)
     }
 
     /**
@@ -133,13 +135,26 @@ public class Human extends Player{
         }
     }
 
-    public double shoot(){
-        sprite.playShoot();
-        hasBall = false;
-        if (side == "top") {
-            return this.angle+90;
+    public void shoot(Ball ball)
+    {
+        if (hasBall)
+        {
+            sprite.playShoot();
+            hasBall = false;
+
+            double ball_shoot_angle;
+            if (side == "top")
+            {
+                ball_shoot_angle = this.angle+90;
+            }
+            else
+            {
+                ball_shoot_angle =  this.angle-90;
+            }
+
+            ball.setAngle(ball_shoot_angle);
+            ball.setSpeed(8);
         }
-        return this.angle-90;
     }
 
     /**

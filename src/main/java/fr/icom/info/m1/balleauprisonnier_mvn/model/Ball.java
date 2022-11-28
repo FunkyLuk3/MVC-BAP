@@ -3,10 +3,13 @@ package fr.icom.info.m1.balleauprisonnier_mvn.model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 
 import java.lang.Math;
+import java.util.ArrayList;
 
-public class Ball {
+public class Ball
+{
 
     double x;
     double y;
@@ -18,6 +21,8 @@ public class Ball {
     boolean isThrown;
 
     String side;
+
+    Field field;
 
     Image projectile;
     ImageView projectileBall;
@@ -62,13 +67,13 @@ public class Ball {
         this.side = side;
     }
 
-    public Ball(GraphicsContext graphicsContext, double x, double y, double angle, double speed){
+    public Ball(Field field, double x, double y, double angle, double speed){
         this.radius = 25/2;
         this.x = x;
         this.y = y;
         this.angle = angle;
         this.speed = speed;
-        this.graphicsContext = graphicsContext;
+        this.field = field;
 
         this.projectile = new Image("assets/ball.png", 25, 25, false, false);
 
@@ -78,7 +83,11 @@ public class Ball {
         projectileBall.setPreserveRatio(true);
         projectileBall.setSmooth(true);
         projectileBall.setCache(true);
+    }
 
+    public Image getImage()
+    {
+        return projectileBall.getImage();
     }
 
     public void deplacement(){
@@ -87,13 +96,6 @@ public class Ball {
 
         x += speed*Math.cos(angle*(Math.PI)/180);
         y += speed*Math.sin(angle*(Math.PI)/180);
-    }
-
-    public void display()
-    {
-        graphicsContext.save(); // saves the current state on stack, including the current transform
-        graphicsContext.drawImage(projectile, x, y);
-        graphicsContext.restore(); // back to original state (before rotation)
     }
 
     public boolean out(double height)
@@ -114,6 +116,45 @@ public class Ball {
     public boolean touch(Player player){
         return (player.getX() + 10 <= x + radius && player.getX() + 55 >= x + radius &&
                 player.getY() <= y + radius && player.getY() + 70 >= y + radius);
+    }
+
+    public void updateBall(ArrayList<Player> teamA, ArrayList<Player> teamB)
+    {
+        // si la balle a le statut "lancée", elle se déplace
+        if(isThrown)
+        {
+            deplacement();
+        }
+
+        // Après le déplacement on vérifie si elle est toujours dans les limites du terrain
+        if (y <= 0)
+        {
+            side = "top";
+            speed = 0.;
+            teamB.get(0).setHasBall(true);
+        }
+        else if (y >= field.getHeight())
+        {
+            side = "bottom";
+            speed = 0.;
+            teamA.get(0).setHasBall(true);
+        }
+
+        if (x <= 0 || x >= field.getWidth())
+        {
+            bounce();
+        }
+
+        if (teamA.get(0).getHasBall())
+        {
+            x = teamA.get(0).getX();
+            y = teamA.get(0).getY();
+        }
+        else if (teamB.get(0).getHasBall())
+        {
+            x = teamB.get(0).getX();
+            y = teamB.get(0).getY();
+        }
     }
 }
 
