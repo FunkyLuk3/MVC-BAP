@@ -8,9 +8,8 @@ import javafx.scene.canvas.Canvas;
  */
 public class Field extends Canvas
 {
-	final int width;
-	final int height;
-
+	public double topside_y_limit;
+	public double botside_y_limit;
 	/**
 	 * Canvas dans lequel on va dessiner le jeu.
 	 *
@@ -20,8 +19,11 @@ public class Field extends Canvas
 	public Field(int w, int h)
 	{
 		super(w, h);
-		width = w;
-		height = h;
+
+		// the topside of the field belongs to the top team
+		topside_y_limit = h/2 - 64;
+
+		botside_y_limit = h/2;
 	}
 
 }

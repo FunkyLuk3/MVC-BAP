@@ -57,16 +57,33 @@ public class App extends Application
 		// On cree la balle
 		Ball ball = new Ball(gameField, 100,100,0,0);
 
+		// On cree le controleur, il faut l'ajouter à root sinon il ne peut pas voir les inputs
 		Controller controller = new Controller(gameField, teamA, teamB, ball);
+		root.getChildren().add(controller);
 
 		View view = new View(gameField);
+		view.setGameActors(players, ball);
 
 		// On met les opérations à effectuer chaque frame dans le handle de cet animation timer
 		new AnimationTimer()
 		{
 			public void handle(long currentNanoTime)
 			{
-				view.setGameActors(players, ball);
+				ArrayList<Player> players = teamA.getPlayers();
+				players.addAll(teamB.getPlayers());
+
+				// On fait bouger les bots
+				for(Player p : players)
+				{
+					if(p instanceof Bot)
+					{
+						((Bot) p).move();
+					}
+				}
+
+				// On met la balle à jour
+				ball.update(players);
+
 				view.drawGame();
 			}
 		}.start();

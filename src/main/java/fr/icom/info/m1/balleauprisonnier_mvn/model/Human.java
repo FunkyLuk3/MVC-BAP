@@ -1,12 +1,20 @@
 package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 
 public class Human extends Player
 {
-    @Override
+    boolean hasBall;
+
+    public double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
+
+    public Image directionArrow;
+    ImageView PlayerDirectionArrow;
+
     public boolean getHasBall() {
         return this.hasBall;
     }
@@ -25,85 +33,21 @@ public class Human extends Player
      * @param side
      */
 
-    public Human(Field field, String color, double xInit, double yInit, String side) {
+    public Human(Field field, String color, double xInit, double yInit, String side)
+    {
         super(field, color, xInit, yInit, side);
-    }
-    private void rotate(GraphicsContext gc, double angle, double px, double py) {
-        Rotate r = new Rotate(angle, px, py);
-        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-    }
 
-    public void display()
-    {
-        field.getGraphicsContext2D().save(); // saves the current state on stack, including the current transform
-        rotate(field.getGraphicsContext2D(), angle, x + directionArrow.getWidth() / 2, y + directionArrow.getHeight() / 2);
-        field.getGraphicsContext2D().drawImage(directionArrow, x, y);
-        field.getGraphicsContext2D().restore(); // back to original state (before rotation)
+        angle = 0;
+
+        directionArrow = new Image("assets/PlayerArrowDown.png");
+
+        PlayerDirectionArrow = new ImageView();
+        PlayerDirectionArrow.setImage(directionArrow);
+        PlayerDirectionArrow.setFitWidth(10);
+        PlayerDirectionArrow.setPreserveRatio(true);
+        PlayerDirectionArrow.setSmooth(true);
+        PlayerDirectionArrow.setCache(true);
     }
-
-    /**
-     *  Deplacement du joueur vers la gauche, on cantonne le joueur sur le plateau de jeu
-     */
-
-    public void moveLeft()
-    {
-        if (x < 10)
-        {
-            x = 10;
-        } else if (x > 520) {
-            x = 520;
-        }
-        spriteAnimate();
-        x -= step;
-    }
-
-    /**
-     *  Deplacement du joueur vers la droite
-     */
-    public void moveRight()
-    {
-        if (x < 10)
-        {
-            x = 10;
-        } else if (x > 520) {
-            x = 520;
-        }
-        spriteAnimate();
-        x += step;
-    }
-
-    public void moveUp()
-    {
-        if (y < 10 && side=="top") {
-            y = 10;
-        } else if (y > 520 && side=="bottom") {
-            y = 520;
-        }
-        if (y > 520/2 && side=="top") {
-            y = 520/2;
-        } else if (y < 520/2 && side=="bottom") {
-            y = 520/2;
-        }
-        spriteAnimate();
-        y += step;
-    }
-
-    public void moveDown()
-    {
-        if (y < 10 && side=="top") {
-            y = 10;
-        } else if (y > 520 && side=="bottom") {
-            y = 520;
-        }
-        if (y > 520/2 && side=="top") {
-            y = 520/2;
-        } else if (y < 520/2 && side=="bottom") {
-            y = 520/2;
-        }
-        spriteAnimate();
-        y -= step;
-    }
-
 
     /**
      *  Rotation du joueur vers la gauche
@@ -117,7 +61,6 @@ public class Human extends Player
         else {
             angle += 1;
         }
-
     }
 
 
@@ -165,13 +108,5 @@ public class Human extends Player
         x += step*2;
         spriteAnimate();
     }
-
-    void spriteAnimate(){
-        //System.out.println("Animating sprite");
-        if(!sprite.isRunning) {sprite.playContinuously();}
-        sprite.setX(x);
-        sprite.setY(y);
-    }
-
 }
 

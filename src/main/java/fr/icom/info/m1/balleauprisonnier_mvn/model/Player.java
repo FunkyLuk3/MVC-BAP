@@ -18,28 +18,20 @@ public class Player
 {
 	double x;       // position horizontale du joueur
 	double y; 	  // position verticale du joueur
-	double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
 	double step;    // pas d'un joueur
 	String playerColor;
 
 
 	// On une image globale du joueur
-	Image directionArrow;
 	public Sprite sprite;
-	ImageView PlayerDirectionArrow;
+
 
 	String side;
-	boolean hasBall;
+
 
 	Field field;
 
-	/**
-	 * Constructeur du Joueur
-	 *
-	 * @param field le terrain dans lequel on va afficher le joueur
-	 * @param color couleur du joueur
-	 * @param yInit position verticale
-	 */
+
 	public  boolean getHasBall(){
 		return false;
 	}
@@ -52,6 +44,13 @@ public class Player
 		return this.y;
 	}
 
+	/**
+	 * Constructeur du Joueur
+	 *
+	 * @param field le terrain dans lequel on va afficher le joueur
+	 * @param color couleur du joueur
+	 * @param yInit position verticale
+	 */
 	Player(Field field, String color, double xInit, double yInit, String side)
 	{
 		// Tous les joueurs commencent au centre du canvas, 
@@ -60,23 +59,7 @@ public class Player
 		this.field = field;
 		playerColor=color;
 
-		angle = 0;
 		this.side = side;
-
-		// On charge la representation du joueur
-		if(this.side=="top"){
-			directionArrow = new Image("assets/PlayerArrowDown.png");
-		}
-		else{
-			directionArrow = new Image("assets/PlayerArrowUp.png");
-		}
-
-		PlayerDirectionArrow = new ImageView();
-		PlayerDirectionArrow.setImage(directionArrow);
-		PlayerDirectionArrow.setFitWidth(10);
-		PlayerDirectionArrow.setPreserveRatio(true);
-		PlayerDirectionArrow.setSmooth(true);
-		PlayerDirectionArrow.setCache(true);
 
 		Image tilesheetImage = new Image("assets/orc.png");
 		sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
@@ -107,48 +90,97 @@ public class Player
 	 *  Deplacement du joueur vers la gauche, on cantonne le joueur sur le plateau de jeu
 	 */
 
-	public void moveLeft(){
+	public void moveLeft()
+	{
+		spriteAnimate();
+		x -= step;
+
+		if (x < 10)
+		{
+			x = 10;
+		} else if (x > field.getWidth() - 80) {
+			x = 520;
+		}
 	}
 
 	/**
 	 *  Deplacement du joueur vers la droite
 	 */
-	public void moveRight(){
+	public void moveRight()
+	{
+		spriteAnimate();
+		x += step;
+
+		if (x < 10)
+		{
+			x = 10;
+		} else if (x > field.getWidth() - 80) {
+			x = 520;
+		}
 	}
 
+	public void moveUp()
+	{
+		spriteAnimate();
+		y -= step;
 
-	/**
-	 *  Rotation du joueur vers la gauche
-	 */
-	public void turnLeft(){
+		if(side == "top")
+		{
+			if (y < 10)
+			{
+				y = 10;
+			}
+			else if (y > field.topside_y_limit)
+			{
+				y = field.topside_y_limit;
+			}
+		}
+		else if (side == "bottom")
+		{
+			if (y < field.botside_y_limit)
+			{
+				y = field.botside_y_limit;
+			}
+			else if (y > field.getHeight() - 64)
+			{
+				y = field.getHeight() - 64;
+			}
+		}
 	}
 
-	public void setHasBall(boolean hasBall){}
+	public void moveDown()
+	{
+		spriteAnimate();
+		y += step;
 
-	/**
-	 *  Rotation du joueur vers la droite
-	 */
-	public void turnRight(){
+		if(side == "top")
+		{
+			if (y < 10)
+			{
+				y = 10;
+			}
+			else if (y > field.topside_y_limit)
+			{
+				y = field.topside_y_limit;
+			}
+		}
+		else if (side == "bottom")
+		{
+			if (y < field.botside_y_limit)
+			{
+				y = field.botside_y_limit;
+			}
+			else if (y > field.getHeight() - 64)
+			{
+				y = field.getHeight() - 64;
+			}
+		}
 	}
 
-
-	public double shoot(){
-		return 0;
-	}
-
-	/**
-	 *  Deplacement en mode boost
-	 */
-	void boost() {
-	}
-
-	void spriteAnimate(){
-	}
-
-	public void moveUp() {
-	}
-
-	public void moveDown() {
+	void spriteAnimate()
+	{
+		//System.out.println("Animating sprite");
+		if(!sprite.isRunning) {sprite.playContinuously();}
 	}
 
 	public void kill() {

@@ -118,43 +118,10 @@ public class Ball
                 player.getY() <= y + radius && player.getY() + 70 >= y + radius);
     }
 
-    public void updateBall(ArrayList<Player> teamA, ArrayList<Player> teamB)
+    // le comportement de la balle, sera appelé chaque frame
+    public void update(ArrayList<Player> players)
     {
-        // si la balle a le statut "lancée", elle se déplace
-        if(isThrown)
-        {
-            deplacement();
-        }
-
-        // Après le déplacement on vérifie si elle est toujours dans les limites du terrain
-        if (y <= 0)
-        {
-            side = "top";
-            speed = 0.;
-            teamB.get(0).setHasBall(true);
-        }
-        else if (y >= field.getHeight())
-        {
-            side = "bottom";
-            speed = 0.;
-            teamA.get(0).setHasBall(true);
-        }
-
-        if (x <= 0 || x >= field.getWidth())
-        {
-            bounce();
-        }
-
-        if (teamA.get(0).getHasBall())
-        {
-            x = teamA.get(0).getX();
-            y = teamA.get(0).getY();
-        }
-        else if (teamB.get(0).getHasBall())
-        {
-            x = teamB.get(0).getX();
-            y = teamB.get(0).getY();
-        }
+        // le comportement de la balle,
     }
 }
 

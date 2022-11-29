@@ -24,7 +24,6 @@ public class Sprite extends ImageView {
         double cellWidth  = 64;//animationImage.getWidth() / numCells; //64x64
         double cellHeight = 64;//animationImage.getHeight() / numRows;
 
-
         numCellsWalk = 9;
 
         int lineNumber = 8;

@@ -98,10 +98,10 @@ public class Controller extends Group
         if (input.contains("M"))
             hA.moveRight();
 
-        if (input.contains("L"))
+        if (input.contains("O"))
             hA.moveUp();
 
-        if (input.contains("O"))
+        if (input.contains("L"))
             hA.moveDown();
 
         if (input.contains("P"))
@@ -113,22 +113,22 @@ public class Controller extends Group
         if (input.contains("CONTROL"))
             hA.shoot(ball);
 
-        if (input.contains("K"))
+        if (input.contains("Q"))
             hB.moveLeft();
 
-        if (input.contains("M"))
+        if (input.contains("D"))
             hB.moveRight();
 
-        if (input.contains("L"))
+        if (input.contains("Z"))
             hB.moveUp();
 
-        if (input.contains("O"))
+        if (input.contains("S"))
             hB.moveDown();
 
-        if (input.contains("P"))
+        if (input.contains("A"))
             hB.turnLeft();
 
-        if (input.contains("I"))
+        if (input.contains("E"))
             hB.turnRight();
 
         if (input.contains("SPACE"))
