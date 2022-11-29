@@ -92,6 +92,11 @@ public class Controller extends Group
         Human hA = teamA.getHumanPlayer();
         Human hB = teamB.getHumanPlayer();
 
+        if (hA == null || hB == null)
+        {
+            return;
+        }
+
         if (input.contains("K"))
             hA.moveLeft();
 

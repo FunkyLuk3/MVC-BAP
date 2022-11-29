@@ -8,6 +8,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 
@@ -57,16 +59,17 @@ public class View extends Group
         // les joueurs
         for (Player p : players)
         {
-            // Le viewport de sprite permet d'isoler la bonne partie du sprite
-            Rectangle2D rect = p.sprite.getViewport();
+            if (p != null)
+            {
+                // Le viewport de sprite permet d'isoler la bonne partie du sprite
+                Rectangle2D rect = p.sprite.getViewport();
 
-            gc.drawImage(p.sprite.getImage(),
-                    rect.getMinX(), rect.getMinY(),     // position dans le sprite
-                    rect.getWidth(), rect.getHeight(),  // dimensions dans le sprite
-                    p.getX(), p.getY(),                 // position dans le gc
-                    rect.getWidth(),rect.getHeight());  // dimensions dans le gc
-
-
+                gc.drawImage(p.sprite.getImage(),
+                        rect.getMinX(), rect.getMinY(),     // position dans le sprite
+                        rect.getWidth(), rect.getHeight(),  // dimensions dans le sprite
+                        p.getX(), p.getY(),                 // position dans le gc
+                        rect.getWidth(),rect.getHeight());  // dimensions dans le gc
+            }
         }
 
         // la balle
@@ -89,10 +92,11 @@ public class View extends Group
         GraphicsContext gc = field.getGraphicsContext2D();
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
+        gc.setFont(Font.font(null, FontWeight.BOLD, null, 35));
 
         gc.fillText(endgame_message,
-                    Math.round(field.getWidth()  / 1.3),
-                    Math.round(field.getHeight() / 1.3));
+                    Math.round(field.getWidth()  / 2),
+                    Math.round(field.getHeight() / 2));
     }
 
     private void drawArrows()
