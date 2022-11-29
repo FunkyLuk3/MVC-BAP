@@ -2,13 +2,13 @@ package fr.icom.info.m1.balleauprisonnier_mvn.view;
 
 import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Ball;
-import fr.icom.info.m1.balleauprisonnier_mvn.model.Bot;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Human;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Player;
-import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 
 
@@ -29,30 +29,10 @@ public class View extends Group
 
     Ball ball;
 
-    private AnimationTimer game_view;
-
-    private AnimationTimer menu_view;
-
     // Constructor
     public View(Field f)
     {
         this.field = f;
-
-        game_view = new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
-                drawGame();
-            }
-        };
-
-        menu_view = new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
-                // les menus si on en arrive là :)
-            }
-        };
     }
 
     // Accesseurs
@@ -93,16 +73,40 @@ public class View extends Group
         gc.drawImage(ball.getImage(), ball.getX(), ball.getY());
     }
 
+    public void drawEndOfGame(String winning_side)
+    {
+        String endgame_message = "";
+
+        if(winning_side == "top")
+        {
+            endgame_message = "L'équipe du haut a gagné !";
+        }
+        else
+        {
+            endgame_message = "L'équipe du bas a gagné !";
+        }
+
+        GraphicsContext gc = field.getGraphicsContext2D();
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextBaseline(VPos.CENTER);
+
+        gc.fillText(endgame_message,
+                    Math.round(field.getWidth()  / 1.3),
+                    Math.round(field.getHeight() / 1.3));
+    }
+
     private void drawArrows()
     {
         for(Player p : players)
         {
             if(p instanceof Human)
             {
-                field.getGraphicsContext2D().save(); // saves the current state on stack, including the current transform
-                rotate(field.getGraphicsContext2D(), ((Human) p).angle, p.getX() + ((Human) p).directionArrow.getWidth() / 2, p.getY() + ((Human) p).directionArrow.getHeight() / 2);
-                field.getGraphicsContext2D().drawImage(((Human) p).directionArrow, p.getX(), p.getY());
-                field.getGraphicsContext2D().restore(); // back to original state (before rotation)
+                GraphicsContext gc = field.getGraphicsContext2D();
+
+                gc.save(); // saves the current state on stack, including the current transform
+                rotate(gc, ((Human) p).angle, p.getX() + ((Human) p).directionArrow.getWidth() / 2, p.getY() + ((Human) p).directionArrow.getHeight() / 2);
+                gc.drawImage(((Human) p).directionArrow, p.getX(), p.getY());
+                gc.restore(); // back to original state (before rotation)
             }
         }
     }

@@ -69,29 +69,45 @@ public class App extends Application
 		{
 			public void handle(long currentNanoTime)
 			{
-				ArrayList<Player> players = teamA.getPlayers();
-				players.addAll(teamB.getPlayers());
-
-				// On fait bouger les bots
-				for(Player p : players)
+				if(!teamA.allPlayersKilled() && !teamB.allPlayersKilled())
 				{
-					if(p instanceof Bot)
+					ArrayList<Player> players = teamA.getPlayers();
+					players.addAll(teamB.getPlayers());
+
+					// On fait bouger les bots
+					for(Player p : players)
 					{
-						((Bot) p).move();
+						if(p instanceof Bot)
+						{
+							((Bot) p).move();
+						}
 					}
+
+					// On met la balle à jour (peut tuer des joueurs)
+					ball.update(teamA, teamB);
+
+					// On recrée la liste des joueurs car ils sont peut etre mort entre temps
+					players.clear();
+					players.addAll(teamA.getPlayers());
+					players.addAll(teamB.getPlayers());
+					view.setGameActors(players, ball);
+
+					view.drawGame();
 				}
+				else
+				{
+					String winning_side;
+					if(teamA.allPlayersKilled())
+					{
+						winning_side = teamA.getSide();
+					}
+					else
+					{
+						winning_side = teamB.getSide();
+					}
 
-				// On met la balle à jour (peut tuer des joueurs)
-				ball.update(teamA, teamB);
-
-				// On recrée la liste des joueurs car ils sont peut etre mort entre temps
-				players.clear();
-				players.addAll(teamA.getPlayers());
-				players.addAll(teamB.getPlayers());
-
-				view.setGameActors(players, ball);
-
-				view.drawGame();
+					view.drawEndOfGame(winning_side);
+				}
 			}
 		}.start();
 

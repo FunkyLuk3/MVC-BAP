@@ -113,7 +113,7 @@ public class PlayerTeam
         if(human_player.isTouched(b))
         {
             // On vérifie qu'il reste au moins un bot à remplacer
-            if(bot_players.size() > 1)
+            if(bot_players.size() >= 1)
             {
                 Bot bot_to_be_replaced = bot_players.get(0);
 
