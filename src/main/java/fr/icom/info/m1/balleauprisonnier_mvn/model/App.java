@@ -81,8 +81,15 @@ public class App extends Application
 					}
 				}
 
-				// On met la balle à jour
-				ball.update(players);
+				// On met la balle à jour (peut tuer des joueurs)
+				ball.update(teamA, teamB);
+
+				// On recrée la liste des joueurs car ils sont peut etre mort entre temps
+				players.clear();
+				players.addAll(teamA.getPlayers());
+				players.addAll(teamB.getPlayers());
+
+				view.setGameActors(players, ball);
 
 				view.drawGame();
 			}

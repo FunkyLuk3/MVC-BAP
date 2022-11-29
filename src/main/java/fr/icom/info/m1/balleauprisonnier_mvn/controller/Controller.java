@@ -110,7 +110,7 @@ public class Controller extends Group
         if (input.contains("I"))
             hA.turnRight();
 
-        if (input.contains("CONTROL"))
+        if (input.contains("SPACE"))
             hA.shoot(ball);
 
         if (input.contains("Q"))
@@ -131,7 +131,7 @@ public class Controller extends Group
         if (input.contains("E"))
             hB.turnRight();
 
-        if (input.contains("SPACE"))
+        if (input.contains("CONTROL"))
             hB.shoot(ball);
     }
 }

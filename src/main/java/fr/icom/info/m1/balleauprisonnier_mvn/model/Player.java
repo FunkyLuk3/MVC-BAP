@@ -21,13 +21,10 @@ public class Player
 	double step;    // pas d'un joueur
 	String playerColor;
 
-
 	// On une image globale du joueur
 	public Sprite sprite;
 
-
 	String side;
-
 
 	Field field;
 
@@ -74,13 +71,6 @@ public class Player
 		// Pour commencer les joueurs ont une vitesse / un pas fixe
 		// step = 1;
 
-	}
-
-	/**
-	 *  Affichage du joueur
-	 */
-	public void display()
-	{
 	}
 
 	private void rotate(GraphicsContext gc, double angle, double px, double py){
@@ -183,7 +173,10 @@ public class Player
 		if(!sprite.isRunning) {sprite.playContinuously();}
 	}
 
-	public void kill() {
-		sprite.setImage(null);
+	// renvoie un boolean indiquant si le balle passée en parametre touche ce joueur
+	public boolean isTouched(Ball b)
+	{
+		return (b.x + b.radius > x && b.x < x + 64) 		// La balle touche le joueur "verticalement"
+			&& (b.y + b.radius > y && b.y < y + 64);		// La balle touche le joueur "horizontalement"
 	}
 }

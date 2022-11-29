@@ -8,20 +8,10 @@ import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 
 public class Human extends Player
 {
-    boolean hasBall;
-
     public double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
 
     public Image directionArrow;
     ImageView PlayerDirectionArrow;
-
-    public boolean getHasBall() {
-        return this.hasBall;
-    }
-
-    public void setHasBall(boolean hasBall){
-        this.hasBall = hasBall;
-    }
 
     /**
      * Constructeur du Joueur
@@ -37,9 +27,18 @@ public class Human extends Player
     {
         super(field, color, xInit, yInit, side);
 
-        angle = 0;
+
 
         directionArrow = new Image("assets/PlayerArrowDown.png");
+
+        if(side == "top")
+        {
+            angle = 0;
+        }
+        else
+        {
+            angle = 180;
+        }
 
         PlayerDirectionArrow = new ImageView();
         PlayerDirectionArrow.setImage(directionArrow);
@@ -80,23 +79,15 @@ public class Human extends Player
 
     public void shoot(Ball ball)
     {
-        if (hasBall)
+        if (ball.player_holding_the_ball == this)
         {
             sprite.playShoot();
-            hasBall = false;
 
-            double ball_shoot_angle;
-            if (side == "top")
-            {
-                ball_shoot_angle = this.angle+90;
-            }
-            else
-            {
-                ball_shoot_angle =  this.angle-90;
-            }
-
-            ball.setAngle(ball_shoot_angle);
+            ball.setAngle(this.angle+90);
             ball.setSpeed(8);
+
+            ball.player_holding_the_ball = null;
+            ball.isThrown = true;
         }
     }
 
