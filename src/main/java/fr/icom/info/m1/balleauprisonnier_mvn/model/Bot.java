@@ -1,6 +1,6 @@
 package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
-import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
+import fr.icom.info.m1.balleauprisonnier_mvn.view.Field;
 
 public class Bot extends  Player
 {

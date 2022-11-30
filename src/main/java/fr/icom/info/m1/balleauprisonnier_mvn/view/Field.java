@@ -1,4 +1,4 @@
-package fr.icom.info.m1.balleauprisonnier_mvn.controller;
+package fr.icom.info.m1.balleauprisonnier_mvn.view;
 
 import javafx.scene.canvas.Canvas;
 
@@ -46,6 +46,9 @@ public class Field extends Canvas
 	// Methode qui va crée l'instance (ne fait rien si elle est déjà créée
 	public static void createInstance(double w, double h)
 	{
-		instance_of_field = new Field(w, h);
+		// Vu que Field est un singleton on ne cree une instance de Field qu'une seule fois
+		if (instance_of_field == null) {
+			instance_of_field = new Field(w, h);
+		}
 	}
 }

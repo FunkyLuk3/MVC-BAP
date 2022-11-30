@@ -1,6 +1,5 @@
 package fr.icom.info.m1.balleauprisonnier_mvn.view;
 
-import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Ball;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Human;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Player;

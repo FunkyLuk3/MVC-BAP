@@ -2,7 +2,7 @@ package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 
 import fr.icom.info.m1.balleauprisonnier_mvn.view.Sprite;
-import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
+import fr.icom.info.m1.balleauprisonnier_mvn.view.Field;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 

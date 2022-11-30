@@ -2,7 +2,7 @@ package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 
 import fr.icom.info.m1.balleauprisonnier_mvn.controller.Controller;
-import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
+import fr.icom.info.m1.balleauprisonnier_mvn.view.Field;
 import fr.icom.info.m1.balleauprisonnier_mvn.view.View;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

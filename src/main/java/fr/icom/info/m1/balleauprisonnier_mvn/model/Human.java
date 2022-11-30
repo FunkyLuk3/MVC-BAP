@@ -2,7 +2,6 @@ package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 
 public class Human extends Player
 {
