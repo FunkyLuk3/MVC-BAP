@@ -6,7 +6,6 @@ import fr.icom.info.m1.balleauprisonnier_mvn.model.Human;
 import fr.icom.info.m1.balleauprisonnier_mvn.model.Player;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
-import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -16,7 +15,7 @@ import javafx.scene.transform.Rotate;
 
 import java.util.ArrayList;
 
-public class View extends Group
+public class View
 {
     private Field field;
 

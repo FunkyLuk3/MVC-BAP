@@ -64,38 +64,6 @@ public class PlayerTeam
     }
 
     // Methodes
-    public void ballCollisions(Ball ball)
-    {
-        // On teste d'abord si la balle touche des bots
-        // Tous les bots touché au même instant meurrent
-        for(int i = 0; i < bot_players.size(); i++)
-        {
-            if (ball.touch(bot_players.get(i)))
-            {
-                bot_players.remove(i);
-            }
-        }
-
-        // On teste si la balle a touché le joueur humain
-        if(ball.touch(human_player))
-        {
-            // Si il reste des bots dans l'équipe, l'un d'eu deviens le joueur humain
-            if(bot_players.size() >= 1)
-            {
-                // On place un nouveau joueur
-                Bot bot_to_replace = bot_players.get(0);
-                human_player.x = bot_to_replace.x;
-                human_player.y = bot_to_replace.y;
-
-                // on retire des bots celui que le joueur remplace
-                bot_players.remove(bot_to_replace);
-            }
-            else
-            {
-                human_player = null;
-            }
-        }
-    }
 
     public ArrayList<Player> getPlayers()
     {
