@@ -1,12 +1,10 @@
 package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
-
 import java.lang.Math;
-import java.util.ArrayList;
+
 
 public class Ball
 {
@@ -28,11 +26,7 @@ public class Ball
 
     Image projectile;
     ImageView projectileBall;
-    GraphicsContext graphicsContext;
 
-    public boolean getIsThrown(){
-        return this.isThrown;
-    }
     public void setAngle(double angle) {
         this.angle = angle;
     }
@@ -41,32 +35,12 @@ public class Ball
         this.speed = speed;
     }
 
-    public double getSpeed() {
-        return speed;
-    }
-
     public double getX() {
         return x;
     }
 
     public double getY() {
         return y;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public String getSide() {
-        return side;
-    }
-
-    public void setSide(String side) {
-        this.side = side;
     }
 
     public Ball(Field field, double x, double y, double angle, double speed)
@@ -171,7 +145,7 @@ public class Ball
         if (isThrown)
         {
             // On retire les joueurs touchés par la balle
-            if(side != teamA.getSide())
+            if(!side.equals(teamA.getSide()))
             {
                 teamA.checkBallCollisions(this);
             }

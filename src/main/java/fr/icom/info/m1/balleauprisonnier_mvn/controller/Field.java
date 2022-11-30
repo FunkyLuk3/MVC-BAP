@@ -21,9 +21,9 @@ public class Field extends Canvas
 		super(w, h);
 
 		// the topside of the field belongs to the top team
-		topside_y_limit = h/2 - 64;
+		topside_y_limit = h/2. - 64;
 
-		botside_y_limit = h/2;
+		botside_y_limit = h/2.;
 	}
 
 }

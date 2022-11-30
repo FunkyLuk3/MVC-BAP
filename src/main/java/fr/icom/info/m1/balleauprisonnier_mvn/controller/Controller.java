@@ -6,7 +6,6 @@ import fr.icom.info.m1.balleauprisonnier_mvn.model.*;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 
 
@@ -15,7 +14,7 @@ import javafx.scene.input.KeyEvent;
 public class Controller extends Group
 {
     /** Tableau traçant les evenements */
-    ArrayList<String> input = new ArrayList<String>();
+    ArrayList<String> input;
 
     AnimationTimer input_manager;
 
@@ -35,14 +34,10 @@ public class Controller extends Group
         teamB = tB;
         ball = b;
 
-        GraphicsContext gc = f.getGraphicsContext2D();
-        double width = f.getWidth();
-        double height = f.getHeight();
-
-        /** permet de capturer le focus et donc les evenements clavier et souris */
+        /* permet de capturer le focus et donc les evenements clavier et souris */
         this.setFocusTraversable(true);
 
-        /**
+        /*
          * Event Listener du clavier
          * quand une touche est pressee on la rajoute a la liste d'input
          *
@@ -58,7 +53,7 @@ public class Controller extends Group
             }
         });
 
-        /**
+        /*
          * Event Listener du clavier
          * quand une touche est relachee on l'enleve de la liste d'input
          *

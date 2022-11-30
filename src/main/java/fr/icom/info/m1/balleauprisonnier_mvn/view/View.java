@@ -18,13 +18,6 @@ import java.util.ArrayList;
 
 public class View extends Group
 {
-    enum CurrentView
-    {
-        Menu,
-        Game
-    }
-
-    CurrentView current_view;
     private Field field;
 
     private ArrayList<Player> players;
@@ -78,9 +71,9 @@ public class View extends Group
 
     public void drawEndOfGame(String winning_side)
     {
-        String endgame_message = "";
+        String endgame_message;
 
-        if(winning_side == "top")
+        if(winning_side.equals("top"))
         {
             endgame_message = "L'équipe du haut a gagné !";
         }

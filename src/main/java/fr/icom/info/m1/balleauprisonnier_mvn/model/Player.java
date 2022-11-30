@@ -3,11 +3,9 @@ package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
 import fr.icom.info.m1.balleauprisonnier_mvn.view.Sprite;
 import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import java.util.Random;
+
 
 /**
  * 
@@ -27,11 +25,6 @@ public class Player
 	String side;
 
 	Field field;
-
-
-	public  boolean getHasBall(){
-		return false;
-	}
 
 	public double getX(){
 		return this.x;
@@ -62,24 +55,13 @@ public class Player
 		sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
 		sprite.setX(x);
 		sprite.setY(y);
-		//directionArrow = sprite.getClip().;
 
-		// Tous les joueurs ont une vitesse aleatoire entre 0.0 et 1.0
-		Random randomGenerator = new Random();
-		step = 2;//randomGenerator.nextFloat();
-
-		// Pour commencer les joueurs ont une vitesse / un pas fixe
-		// step = 1;
-
-	}
-
-	private void rotate(GraphicsContext gc, double angle, double px, double py){
+		step = 2;
 	}
 
 	/**
 	 *  Deplacement du joueur vers la gauche, on cantonne le joueur sur le plateau de jeu
 	 */
-
 	public void moveLeft()
 	{
 		spriteAnimate();
@@ -114,7 +96,7 @@ public class Player
 		spriteAnimate();
 		y -= step;
 
-		if(side == "top")
+		if(side.equals("top"))
 		{
 			if (y < 10)
 			{
@@ -125,7 +107,7 @@ public class Player
 				y = field.topside_y_limit;
 			}
 		}
-		else if (side == "bottom")
+		else if (side.equals("bottom"))
 		{
 			if (y < field.botside_y_limit)
 			{
@@ -143,7 +125,7 @@ public class Player
 		spriteAnimate();
 		y += step;
 
-		if(side == "top")
+		if(side.equals("top"))
 		{
 			if (y < 10)
 			{
@@ -154,7 +136,7 @@ public class Player
 				y = field.topside_y_limit;
 			}
 		}
-		else if (side == "bottom")
+		else if (side.equals("bottom"))
 		{
 			if (y < field.botside_y_limit)
 			{

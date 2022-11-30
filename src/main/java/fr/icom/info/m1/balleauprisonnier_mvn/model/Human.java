@@ -1,14 +1,12 @@
 package fr.icom.info.m1.balleauprisonnier_mvn.model;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.transform.Rotate;
 import fr.icom.info.m1.balleauprisonnier_mvn.controller.Field;
 
 public class Human extends Player
 {
-    public double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
+    public double angle; // rotation du joueur, devrait toujour être en 0 et 180
 
     public Image directionArrow;
     ImageView PlayerDirectionArrow;
@@ -31,7 +29,7 @@ public class Human extends Player
 
         directionArrow = new Image("assets/PlayerArrowDown.png");
 
-        if(side == "top")
+        if(side.equals("top"))
         {
             angle = 0;
         }
@@ -89,15 +87,6 @@ public class Human extends Player
             ball.player_holding_the_ball = null;
             ball.isThrown = true;
         }
-    }
-
-    /**
-     *  Deplacement en mode boost
-     */
-    void boost()
-    {
-        x += step*2;
-        spriteAnimate();
     }
 }
 

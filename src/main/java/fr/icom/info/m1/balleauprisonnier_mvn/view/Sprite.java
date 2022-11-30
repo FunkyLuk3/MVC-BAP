@@ -27,7 +27,7 @@ public class Sprite extends ImageView {
         numCellsWalk = 9;
 
         int lineNumber = 8;
-        if(side == "top"){
+        if(side.equals("top")){
             lineNumber += 2;
         }
 
@@ -86,11 +86,5 @@ public class Sprite extends ImageView {
         timeline.setCycleCount(numCellsShoot);
         timeline.setOnFinished(e -> playContinuously());
         timeline.playFromStart();
-    }
-
-    public void stop() {
-        frameCounter.set(0);
-        setViewport(walkClips[frameCounter.get()]);
-        walkTimeline.stop();
     }
 }
