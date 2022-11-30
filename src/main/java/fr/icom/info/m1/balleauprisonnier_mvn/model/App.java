@@ -41,22 +41,23 @@ public class App extends Application
 		Scene scene = new Scene( root );
 
 		// On cree le terrain de jeu et on l'ajoute a la racine de la scene
-		Field gameField = new Field(width, height );
+		Field.createInstance(width, height);
+		Field gameField = Field.getInstance();
 		root.getChildren().add( gameField );
 
 		// On cree les deux equipes
-		PlayerTeam teamA = new PlayerTeam(nb_bots_per_team, gameField, colorMap[0], "top");
-		PlayerTeam teamB = new PlayerTeam(nb_bots_per_team, gameField, colorMap[0], "bottom");
+		PlayerTeam teamA = new PlayerTeam(nb_bots_per_team, colorMap[0], "top");
+		PlayerTeam teamB = new PlayerTeam(nb_bots_per_team, colorMap[0], "bottom");
 
 		// On ajoute les sprites de tous les joueurs à la scene
 		ArrayList<Player> players = teamA.getPlayers();
 		players.addAll(teamB.getPlayers());
 
 		// On cree la balle
-		Ball ball = new Ball(gameField, 100,100,0,0);
+		Ball ball = new Ball(100,100,0,0);
 
 		// On cree le controleur, il faut l'ajouter à root sinon il ne peut pas voir les inputs
-		Controller controller = new Controller(gameField, teamA, teamB, ball);
+		Controller controller = new Controller(teamA, teamB, ball);
 		root.getChildren().add(controller);
 
 		View view = new View(gameField);
@@ -97,11 +98,11 @@ public class App extends Application
 					String winning_side;
 					if(teamA.allPlayersKilled())
 					{
-						winning_side = teamA.getSide();
+						winning_side = teamB.getSide();
 					}
 					else
 					{
-						winning_side = teamB.getSide();
+						winning_side = teamA.getSide();
 					}
 
 					view.drawEndOfGame(winning_side);

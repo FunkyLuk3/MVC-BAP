@@ -18,18 +18,15 @@ public class Controller extends Group
 
     AnimationTimer input_manager;
 
-    Field field;
-
     PlayerTeam teamA;
     PlayerTeam teamB;
 
     Ball ball;
 
 
-    public Controller(Field f, PlayerTeam tA, PlayerTeam tB, Ball b)
+    public Controller(PlayerTeam tA, PlayerTeam tB, Ball b)
     {
         input = new ArrayList<String>();
-        field = f;
         teamA = tA;
         teamB = tB;
         ball = b;

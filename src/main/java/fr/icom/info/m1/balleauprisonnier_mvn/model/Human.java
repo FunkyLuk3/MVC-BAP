@@ -14,16 +14,15 @@ public class Human extends Player
     /**
      * Constructeur du Joueur
      *
-     * @param field terrain dans lequel on va afficher le joueur
      * @param color couleur du joueur
      * @param xInit
      * @param yInit position verticale
      * @param side
      */
 
-    public Human(Field field, String color, double xInit, double yInit, String side)
+    public Human(String color, double xInit, double yInit, String side)
     {
-        super(field, color, xInit, yInit, side);
+        super(color, xInit, yInit, side);
 
 
 

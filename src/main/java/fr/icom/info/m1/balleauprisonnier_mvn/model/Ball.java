@@ -22,8 +22,6 @@ public class Ball
 
     String side;
 
-    Field field;
-
     Image projectile;
     ImageView projectileBall;
 
@@ -43,14 +41,13 @@ public class Ball
         return y;
     }
 
-    public Ball(Field field, double x, double y, double angle, double speed)
+    public Ball(double x, double y, double angle, double speed)
     {
         this.radius = 25./2;
         this.x = x;
         this.y = y;
         this.angle = angle;
         this.speed = speed;
-        this.field = field;
         this.isThrown = false;
         this.player_holding_the_ball = null;
 
@@ -96,15 +93,16 @@ public class Ball
 
     public void isOutOfBound()
     {
+        Field f = Field.getInstance();
         // On vérifie d'abord les Y
-        if (this.y > field.getHeight())
+        if (this.y >  f.getHeight())
         {
             // balle sort par le bas du terrain
             // Elle revient à l'équipe du bas
             isThrown = false;
             player_holding_the_ball = null;
-            x = field.getWidth()/2;
-            y = 3 * field.getHeight()/4;
+            x =  f.getWidth()/2;
+            y = 3 *  f.getHeight()/4;
         }
         else if (this.y < 0)
         {
@@ -112,12 +110,12 @@ public class Ball
             // Elle revient à l'équipe du haut
             isThrown = false;
             player_holding_the_ball = null;
-            x = field.getWidth()/2;
-            y = field.getHeight()/4;
+            x =  f.getWidth()/2;
+            y =  f.getHeight()/4;
         }
 
         // La balle rebondit sur les murs (les côtés du terrains
-        if (this.x + radius > field.getWidth() || this.x < 0)
+        if (this.x + radius >  f.getWidth() || this.x < 0)
         {
             bounce();
         }

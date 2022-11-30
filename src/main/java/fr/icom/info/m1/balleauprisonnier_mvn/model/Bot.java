@@ -10,14 +10,13 @@ public class Bot extends  Player
     /**
      * Constructeur du Joueur
      *
-     * @param field terrain dans lequel on va afficher le joueur
      * @param color couleur du joueur
      * @param xInit
      * @param yInit position verticale
      * @param side
      */
-    public Bot(Field field, String color, double xInit, double yInit, String side) {
-        super(field, color, xInit, yInit, side);
+    public Bot(String color, double xInit, double yInit, String side) {
+        super(color, xInit, yInit, side);
 
         is_moving_right = true;
     }
@@ -49,9 +48,9 @@ public class Bot extends  Player
             x = 10;
             is_moving_right = true;
         }
-        else if (x > field.getWidth() - 80)
+        else if (x >  Field.getInstance().getWidth() - 80)
         {
-            x = field.getWidth() - 80;
+            x =  Field.getInstance().getWidth() - 80;
         }
     }
 
@@ -68,9 +67,9 @@ public class Bot extends  Player
         {
             x = 10;
         }
-        else if (x > field.getWidth() - 80)
+        else if (x >  Field.getInstance().getWidth() - 80)
         {
-            x = field.getWidth() - 80;
+            x =  Field.getInstance().getWidth() - 80;
             is_moving_right = false;
         }
     }

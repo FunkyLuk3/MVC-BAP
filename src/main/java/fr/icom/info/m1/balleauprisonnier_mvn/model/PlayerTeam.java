@@ -16,16 +16,15 @@ public class PlayerTeam
     private Field field;
 
     // constructeur
-    public PlayerTeam(int bot_nb, Field field, String color, String side)
+    public PlayerTeam(int bot_nb, String color, String side)
     {
         this.color = color;
         this.side = side;
-        this.field = field;
 
         this.bot_players = new ArrayList<Bot>();
 
-        double width = field.getWidth();
-        double height = field.getHeight();
+        double width =  Field.getInstance().getWidth();
+        double height =  Field.getInstance().getHeight();
 
         double y_init;
         double human_y_init;
@@ -42,14 +41,14 @@ public class PlayerTeam
         }
 
         // On cree le joueur
-        human_player = new Human(field, color, width/2, human_y_init, side);
+        human_player = new Human(color, width/2, human_y_init, side);
 
         // On cree le nombre de bots indiqués
         for(int i = 0; i < bot_nb; i++)
         {
             double x_init = (i + 1) * width/(bot_nb+1);
 
-            bot_players.add(new Bot(field, color, x_init, y_init,side));
+            bot_players.add(new Bot(color, x_init, y_init,side));
         }
     }
 

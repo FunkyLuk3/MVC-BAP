@@ -24,8 +24,6 @@ public class Player
 
 	String side;
 
-	Field field;
-
 	public double getX(){
 		return this.x;
 	}
@@ -37,16 +35,14 @@ public class Player
 	/**
 	 * Constructeur du Joueur
 	 *
-	 * @param field le terrain dans lequel on va afficher le joueur
 	 * @param color couleur du joueur
 	 * @param yInit position verticale
 	 */
-	Player(Field field, String color, double xInit, double yInit, String side)
+	Player(String color, double xInit, double yInit, String side)
 	{
 		// Tous les joueurs commencent au centre du canvas, 
 		x = xInit;
 		y = yInit;
-		this.field = field;
 		playerColor=color;
 
 		this.side = side;
@@ -70,7 +66,7 @@ public class Player
 		if (x < 10)
 		{
 			x = 10;
-		} else if (x > field.getWidth() - 80) {
+		} else if (x > Field.getInstance().getWidth() - 80) {
 			x = 520;
 		}
 	}
@@ -86,7 +82,7 @@ public class Player
 		if (x < 10)
 		{
 			x = 10;
-		} else if (x > field.getWidth() - 80) {
+		} else if (x > Field.getInstance().getWidth() - 80) {
 			x = 520;
 		}
 	}
@@ -102,20 +98,20 @@ public class Player
 			{
 				y = 10;
 			}
-			else if (y > field.topside_y_limit)
+			else if (y > Field.getInstance().getTopsideYLimit())
 			{
-				y = field.topside_y_limit;
+				y = Field.getInstance().getTopsideYLimit();
 			}
 		}
 		else if (side.equals("bottom"))
 		{
-			if (y < field.botside_y_limit)
+			if (y < Field.getInstance().getBotsideYLimit())
 			{
-				y = field.botside_y_limit;
+				y = Field.getInstance().getBotsideYLimit();
 			}
-			else if (y > field.getHeight() - 64)
+			else if (y >  Field.getInstance().getHeight() - 64)
 			{
-				y = field.getHeight() - 64;
+				y =  Field.getInstance().getHeight() - 64;
 			}
 		}
 	}
@@ -131,20 +127,20 @@ public class Player
 			{
 				y = 10;
 			}
-			else if (y > field.topside_y_limit)
+			else if (y > Field.getInstance().getTopsideYLimit())
 			{
-				y = field.topside_y_limit;
+				y = Field.getInstance().getTopsideYLimit();
 			}
 		}
 		else if (side.equals("bottom"))
 		{
-			if (y < field.botside_y_limit)
+			if (y < Field.getInstance().getBotsideYLimit())
 			{
-				y = field.botside_y_limit;
+				y = Field.getInstance().getBotsideYLimit();
 			}
-			else if (y > field.getHeight() - 64)
+			else if (y >  Field.getInstance().getHeight() - 64)
 			{
-				y = field.getHeight() - 64;
+				y =  Field.getInstance().getHeight() - 64;
 			}
 		}
 	}

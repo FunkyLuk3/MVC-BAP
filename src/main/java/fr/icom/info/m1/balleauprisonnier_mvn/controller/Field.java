@@ -4,19 +4,20 @@ import javafx.scene.canvas.Canvas;
 
 /**
  * Classe gerant le terrain de jeu.
- * 
+ * C'est un singleton
  */
 public class Field extends Canvas
 {
-	public double topside_y_limit;
-	public double botside_y_limit;
+	private static Field instance_of_field;
+	private double topside_y_limit;
+	private double botside_y_limit;
 	/**
 	 * Canvas dans lequel on va dessiner le jeu.
 	 *
 	 * @param w largeur du canvas
 	 * @param h hauteur du canvas
 	 */
-	public Field(int w, int h)
+	private Field(double w, double h)
 	{
 		super(w, h);
 
@@ -26,4 +27,25 @@ public class Field extends Canvas
 		botside_y_limit = h/2.;
 	}
 
+	// Accesseurs
+	public static Field getInstance()
+	{
+		return instance_of_field;
+	}
+
+	public double getTopsideYLimit()
+	{
+		return topside_y_limit;
+	}
+
+	public double getBotsideYLimit()
+	{
+		return botside_y_limit;
+	}
+
+	// Methode qui va crée l'instance (ne fait rien si elle est déjà créée
+	public static void createInstance(double w, double h)
+	{
+		instance_of_field = new Field(w, h);
+	}
 }
